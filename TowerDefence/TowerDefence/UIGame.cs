@@ -39,7 +39,8 @@ namespace TowerDefence
 
         public void Update(Microsoft.Xna.Framework.GameTime gametime)
         {
-
+            menu.UI.Update(gametime);
+            menu.Update(gametime);
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
@@ -51,7 +52,7 @@ namespace TowerDefence
     {
         UIHandler UI { get; }
         void Load();
-        void Update();
+        void Update(GameTime gametime);
         void Draw(SpriteBatch spriteBatch);
     }
 
@@ -77,12 +78,13 @@ namespace TowerDefence
 
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             if (((ButtonSimple)ui.UIobjects["ExitButton"]).WasPressed)
             {
                 ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new MenuScreen();
             }
+            ui.Update(gametime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
