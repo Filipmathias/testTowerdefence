@@ -1,0 +1,29 @@
+  _______ ____    _____   ____        
+ |__   __/ __ \  |  __ \ / __ \ 
+    | | | |  | | | |  | | |  | |
+    | | | |  | | | |  | | |  | |
+    | | | |__| | | |__| | |__| |
+    |_|  \____/  |_____/ \____/ 
+                               
+_________________________________
+
+
+GameScreen
+  -UI
+	-Menu system
+
+  -Gameplay	
+	-Class/interface for towers
+  	-class/interface for enemies
+
+Menuscreen
+  -Start button
+  -Options button
+  -CREDITS button
+  -better buttons
+Credits screen
+
+
+-very annoying Exit menu(optional
+
+	
