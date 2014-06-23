@@ -35,13 +35,12 @@ namespace TowerDefence
         }
     }
 
-<<<<<<< HEAD
 
     interface IEnemy 
     {
-        void Update(GameTime);
-    
-=======
+        void Update(GameTime gametime);
+    }
+
     class Map 
     {
         /// <summary>
@@ -60,11 +59,10 @@ namespace TowerDefence
 
         public void Draw(SpriteBatch spritebatch) 
         {
-             //committest
->>>>>>> origin/master
+
+        }
+
     }
-
-
 
 
 
