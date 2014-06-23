@@ -24,4 +24,4 @@ Credits screen
 
 -very annoying Exit menu(optional
 
-	
+- Read - http://www.policyalmanac.org/games/aStarTutorial.htm	
