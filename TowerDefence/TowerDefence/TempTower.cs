@@ -31,7 +31,7 @@ namespace TowerDefence
         public Tier1Normal(Vector2 position)
         {
             Size = new Vector2(30,30);
-            Col = Color.Ivory;
+            Col = Color.Navy;
             Pos = position;
         }
         public Vector2 Position

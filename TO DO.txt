@@ -17,8 +17,6 @@ GameScreen
   	-class/interface for enemies
 
 Menuscreen
-  -Start button
-  -Options button
   -CREDITS button
   -better buttons
 Credits screen
