@@ -238,7 +238,7 @@ namespace TowerDefence
         {
             Size.X = 15;
             Size.Y = 15;
-            BColor = Color.Green;
+            BColor = Color.Tomato;
         }
         
         public void Load()
