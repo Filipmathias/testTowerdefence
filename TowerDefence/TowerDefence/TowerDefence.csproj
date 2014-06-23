@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OptionsUI.cs" />
+    <Compile Include="MapEditor.cs" />
     <Compile Include="TowerDefence.cs" />
     <Compile Include="UIGame.cs" />
     <Compile Include="FPSModule.cs" />
