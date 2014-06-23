@@ -13,7 +13,7 @@ namespace TowerDefence
     class MapEditor:IScreen
     {
         byte[] mapData = new byte[400];
-        ButtonSimple ButtonFill = new ButtonSimple(new Vector2(5, 5), new Vector2(100, 400),"Fill", Color.Green, Color.Black, 1f);  
+        ButtonSimple ButtonFill = new ButtonSimple(new Vector2(5, 5), new Vector2(100, 40),"Fill", Color.Green, Color.Black, 1f);  
 
         UIHandler IScreen.UI
         {
@@ -28,17 +28,17 @@ namespace TowerDefence
 
         void IScreen.Update(GameTime gametime)
         {
-
+            ButtonFill.Update(gametime);
 
         }
 
         void IScreen.Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle(0, 0, 250, 75), Color.Silver);
-            spriteBatch.DrawString(Game1.Instance.debugFont, "Race: ", new Vector2(4, 4), Color.Black);
-            spriteBatch.DrawString(Game1.Instance.debugFont, "Gold: ", new Vector2(4, 35), Color.Gold);
             spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle(0, 75, 250, 375), Color.White);
             spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle(0, 450, 250, 150), Color.Silver);
+
+            ButtonFill.Draw(spriteBatch);
         }
     }
 
