@@ -20,8 +20,9 @@ namespace TowerDefence
         UIHandler ui = new UIHandler();
         public OptionsScreen()
         {
-            ui.UIobjects.Add("EditorButton", new ButtonSimple(new Vector2(400, 240), new Vector2(100, 40), "Editor", Color.Green, Color.Black, 1f));
+            ui.UIobjects.Add("EditorButton", new ButtonSimple(new Vector2(400, 200), new Vector2(100, 40), "Editor", Color.Green, Color.Black, 1f));
             ui.UIobjects.Add("BackButton", new ButtonSimple(new Vector2(400, 280), new Vector2(100, 40), "Back", Color.Yellow, Color.Red, 1f));
+            ui.UIobjects.Add("PathButton", new ButtonSimple(new Vector2(400, 240), new Vector2(100, 40), "PathingTester", Color.Yellow, Color.Red, 1f));
         }
 
         public UIHandler UI
@@ -43,11 +44,16 @@ namespace TowerDefence
             {
                 ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new MenuScreen();
             }
+            
             if (((ButtonSimple)ui.UIobjects["EditorButton"]).WasPressed)
             {
                 ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new MapEditor();
             }
-
+          
+            if (((ButtonSimple)ui.UIobjects["PathButton"]).WasPressed)
+            {
+                ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new PathFindingTester();
+            }
 
         }
 

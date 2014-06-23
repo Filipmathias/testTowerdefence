@@ -14,7 +14,7 @@ namespace TowerDefence
     {
         byte[] mapData = new byte[400];
         
-        //Fill??
+        //Fill?? YES!
         ButtonSimple ButtonFill = new ButtonSimple(new Vector2(5, 5), new Vector2(100, 40),"Fill", Color.Green, Color.Black, 1f);
 
         //Save
@@ -56,7 +56,7 @@ namespace TowerDefence
         {
             for (int i = 0; i < 400; i++)
             {
-                buttonArray[i] = new ButtonSimple(new Vector2((400 + i * 30) - (i / 20*600), (i / 20) * 30), new Vector2(30, 30), "0", getColor(0), Color.Black, 0.8f);
+                buttonArray[i] = new ButtonSimple(new Vector2((400 + i * 30) - (i / 20 * 600), (i / 20) * 30), new Vector2(30, 30), "0", getColor(0), Color.Black, 0.8f);
 
             }
 
@@ -81,7 +81,7 @@ namespace TowerDefence
             }
 
 
-            ButtonFill.Update(gametime);
+    
             //1
             I1Button.Update(gametime);
             if (I1Button.WasPressed) 
@@ -139,6 +139,18 @@ namespace TowerDefence
             {
                 ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen =new MenuScreen() ;
             }
+            //Fill
+            ButtonFill.Update(gametime);
+            if (ButtonFill.WasPressed)
+            {
+                for (int i = 0; i < 400; i++)
+                {
+                    mapData[i] = SelectedValue;
+                    buttonArray[i] = new ButtonSimple(new Vector2((400 + i * 30) - (i / 20 * 600), (i / 20) * 30), new Vector2(30, 30),SelectedValue.ToString(), getColor(SelectedValue), Color.Black, 0.8f);
+
+                }
+            }
+
 
         }
 

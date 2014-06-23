@@ -97,11 +97,7 @@ namespace TowerDefence
     class EPath 
     {
         List<Point> Points = new List<Point>();
-        public void TestPath()
-        {
-            Points.Add(new Point(0,1));
-            Points.Add(new Point(20,1));
-        }
+
 
     }
     
