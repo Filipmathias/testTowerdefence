@@ -35,34 +35,14 @@ namespace TowerDefence
         }
     }
 
-    class Map 
+
+    interface IEnemy 
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Path">the path of the map file</param>
-        byte[] mapArray;
-        
-        public Map(string Path)
-        {
-            mapArray = File.ReadAllBytes(Path);
-        }
-        
-
-
-
-        public void Draw(SpriteBatch spritebatch) 
-        {
-             
-
-        }
+        void Update(GameTime);
+    
     }
 
-    class Path 
-    {
-        
-        
-    }
+
 
 
 
