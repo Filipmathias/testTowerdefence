@@ -98,8 +98,9 @@ namespace TowerDefence
         public MenuScreen() 
         {
             ui.UIobjects.Add("StartButton", new ButtonSimple(new Vector2(400, 200), new Vector2(100, 40), "Start", Color.Green, Color.Black,1f));
-            ui.UIobjects.Add("ExitButton", new ButtonSimple(new Vector2(400, 240), new Vector2(100, 40),"EXIT", Color.Red,Color.Black,1f));
-            ui.UIobjects.Add("DoNotPressButton", new ButtonSimple(new Vector2(350, 280), new Vector2(200, 40), "PressThisFaggot", Color.Red, Color.Black, 1f));
+            ui.UIobjects.Add("ExitButton", new ButtonSimple(new Vector2(400, 280), new Vector2(100, 40),"EXIT", Color.Red,Color.Black,1f));
+            ui.UIobjects.Add("OptionsButton", new ButtonSimple(new Vector2(400, 240), new Vector2(100, 40), "Options", Color.Blue, Color.Black, 1f));
+            ui.UIobjects.Add("DoNotPressButton", new ButtonSimple(new Vector2(350, 320), new Vector2(200, 40), "PressThisFaggot", Color.CornflowerBlue, Color.CornflowerBlue, 1f));
 
         }
 
@@ -132,9 +133,13 @@ namespace TowerDefence
                 ((ButtonSimple)ui.UIobjects["DoNotPressButton"]).BColor = Color.DeepPink;
                 ((ButtonSimple)ui.UIobjects["StartButton"]).BColor = Color.DeepPink;
                 ((ButtonSimple)ui.UIobjects["ExitButton"]).BColor = Color.DeepPink;
+                ((ButtonSimple)ui.UIobjects["OptionsButton"]).BColor = Color.DeepPink;
                 FLASHY = true;
             }
-
+            if (((ButtonSimple)ui.UIobjects["OptionsButton"]).WasPressed)
+            {
+                ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new OptionsScreen();
+            }
             
 
         }
@@ -142,7 +147,7 @@ namespace TowerDefence
         void IScreen.Draw(SpriteBatch spriteBatch)
         {
             if(FLASHY){
-                spriteBatch.Draw(UILoader.bgTexture,new Rectangle(0,0,1000,600),Color.White);
+                spriteBatch.Draw(UILoader.bgTexture, new Rectangle(0, 0, 1000, 600), Color.White);
             }
         }
     }
@@ -233,7 +238,7 @@ namespace TowerDefence
         {
             Size.X = 15;
             Size.Y = 15;
-            BColor = Color.HotPink;
+            BColor = Color.Green;
         }
         
         public void Load()
