@@ -53,15 +53,7 @@ namespace TowerDefence
 
         public void Draw(SpriteBatch spritebatch) 
         {
-             
-
-        }
-    }
-
-    class Path 
-    {
-        
-        
+             //committest
     }
 
 
