@@ -95,7 +95,7 @@ namespace TowerDefence
                     {
                         if (Best != null) 
                         {
-                            if (Best.F < OpenList[i].F)
+                            if (Best.F > OpenList[i].F)
                             {
                                 Best = OpenList[i];
                             }
