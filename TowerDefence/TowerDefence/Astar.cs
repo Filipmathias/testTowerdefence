@@ -11,17 +11,35 @@ using System.Windows.Forms;
 
 namespace TowerDefence
 {
+
+
+     class PathResult
+     {
+         public List<Point> pathPoints;
+         public bool Success{ get;set;}
+         public PathResult()
+         {
+            Success = false;
+            pathPoints = new List<Point>();
+         }
+         public PathResult(List<Point> path)
+         {
+            Success = true;
+            pathPoints =path;
+         }
+
+
+
+     }
      class Astar
-    {
-
-
+     {
 
          List<Tile> ClosedList = new List<Tile>();
          List<Tile> OpenList = new List<Tile>();
          Tile[] Map = new Tile[400];
-         Tile Start;
-         Tile End;
-         public List<Point> getPath() 
+         Tile Start = null;
+         Tile End = null;
+         List<Point> getPath() 
          {
              
              List<Point> Result = new List<Point>();
@@ -42,10 +60,11 @@ namespace TowerDefence
              }
 
              return Result;
-
          }
 
-        public void FindPath(byte[] map, List<ITower> Towers) 
+
+
+        public PathResult FindPath(byte[] map, List<ITower> Towers) 
         {
             //create TileMap
             for (int i = 0; i < 400; i++)
@@ -76,6 +95,12 @@ namespace TowerDefence
 
             // adding starting point to the open List
 
+            if (Start == null | End == null) 
+            {
+                return new PathResult();
+            }
+
+            
             Start.H = calcH(Start.position, End.position);
             OpenList.Add(Start);
             
@@ -86,7 +111,7 @@ namespace TowerDefence
                 {
                     if (OpenList.Count == 0)
                     {
-                        return;
+                        return new PathResult();
                     }
                     //get the best tile
                     Tile Best = null;
@@ -111,8 +136,9 @@ namespace TowerDefence
                     ClosedList.Add(Best);
                     if (Best == End) 
                     {
-                        return;
+                        return new PathResult(getPath());
                     }
+                    // get the tiles ajecent to 
 
                     OpenList.AddRange(NextTiles(Best));
                 }
@@ -130,14 +156,23 @@ namespace TowerDefence
 
 
             int newindex = index -1 ;
+            //left
             if (TileValid(newindex,index)) 
             {
+
+                //set the parrent of tile
                 Map[newindex].Parrent = Map[index];
+                //calculate G
                 Map[newindex].G = Map[newindex].G + 1; 
+                //calculate H
                 Map[newindex].H = calcH(Map[newindex].position, End.position);
+                // adding the tile
                 tiles.Add(Map[newindex]);
             }
+            //up
+           
             newindex = index - 20;
+            
             if (TileValid(newindex,index))
             {
                 Map[newindex].Parrent = Map[index];
@@ -145,7 +180,10 @@ namespace TowerDefence
                 Map[newindex].H = calcH(Map[newindex].position, End.position);
                 tiles.Add(Map[newindex]);
             }
+            //right
+           
             newindex = index + 1;
+            
             if (TileValid(newindex,index))
             {
                 Map[newindex].Parrent = Map[index];
@@ -153,6 +191,8 @@ namespace TowerDefence
                 Map[newindex].H = calcH(Map[newindex].position, End.position);
                 tiles.Add(Map[newindex]);
             }
+           
+            //down
             newindex = index + 20;
             
             if (TileValid(newindex,index))

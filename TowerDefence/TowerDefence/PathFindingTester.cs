@@ -68,11 +68,7 @@ namespace TowerDefence
                 LoadFile();
             }
 
-            foreach(Point p in PathPoints)
-            {
-                buttonArray[p.X + p.Y * 20].BColor = Color.Blue;
-            }
-
+           
 
 
         }
@@ -92,7 +88,7 @@ namespace TowerDefence
             {
                 bs.Draw(spriteBatch);
             }
-
+            Drawpath(spriteBatch, PathPoints);
 
 
         }
@@ -110,9 +106,9 @@ namespace TowerDefence
             
             
             timer.Start();
-            finder.FindPath(mapData,new List<ITower>());
-
-            PathPoints = finder.getPath();
+            PathResult e = finder.FindPath(mapData,new List<ITower>());
+            PathPoints = e.pathPoints;
+            
             timer.Stop();
             MessageBox.Show("time: " + timer.Elapsed.TotalMilliseconds + " ms");
 
@@ -135,6 +131,19 @@ namespace TowerDefence
 
                 }
 
+            }
+        }
+
+        void Drawpath(SpriteBatch spritebat, List<Point> path) 
+        {
+
+            foreach(Point p in path)
+            {
+
+               int i = p.X + p.Y*20;
+
+
+                spritebat.Draw(UILoader.circle, new Rectangle((405 + i * 30) - (i / 20 * 600), ((i / 20) * 30)+5, 20, 20), Color.Pink);
             }
         }
 

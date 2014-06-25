@@ -17,7 +17,7 @@ namespace TowerDefence
         public static Texture2D ButtonTexture;
         public static Texture2D ArrowTexture;
         public static Texture2D bgTexture;
-
+        public static Texture2D circle;
 
 
         public static void Load() 
@@ -25,6 +25,9 @@ namespace TowerDefence
             ButtonTexture = Game1.Instance.Content.Load<Texture2D>("Interface/buttontest");
             ArrowTexture = Game1.Instance.Content.Load<Texture2D>("Interface/Arrow");
             bgTexture = Game1.Instance.Content.Load<Texture2D>("Interface/bg");
+            circle = Game1.Instance.Content.Load<Texture2D>("Interface/circle");
+
+
         }
 
 
