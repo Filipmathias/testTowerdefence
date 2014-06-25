@@ -13,7 +13,10 @@ namespace TowerDefence
 {
     class PathFindingTester : IScreen
     {
-
+       
+        //PATH
+        List<Point> PathPoints = new List<Point>();
+            
         //map
         ButtonSimple[] buttonArray = new ButtonSimple[400];
         byte[] mapData = new byte[400];
@@ -65,6 +68,11 @@ namespace TowerDefence
                 LoadFile();
             }
 
+            foreach(Point p in PathPoints)
+            {
+                buttonArray[p.X + p.Y * 20].BColor = Color.Blue;
+            }
+
 
 
         }
@@ -85,6 +93,8 @@ namespace TowerDefence
                 bs.Draw(spriteBatch);
             }
 
+
+
         }
         
 
@@ -96,12 +106,17 @@ namespace TowerDefence
         {
             var timer = new Stopwatch();
             // timer started;
+            var finder=  new Astar();
+            
+            
             timer.Start();
- 
+            finder.FindPath(mapData,new List<ITower>());
 
-
+            PathPoints = finder.getPath();
             timer.Stop();
             MessageBox.Show("time: " + timer.Elapsed.TotalMilliseconds + " ms");
+
+
 
 
         }

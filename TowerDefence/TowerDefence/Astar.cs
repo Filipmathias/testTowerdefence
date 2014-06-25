@@ -21,7 +21,29 @@ namespace TowerDefence
          Tile[] Map = new Tile[400];
          Tile Start;
          Tile End;
+         public List<Point> getPath() 
+         {
+             
+             List<Point> Result = new List<Point>();
 
+             bool done = false;
+             Tile Curr = End;
+             
+             while (!done)
+             {
+                 Result.Add(Curr.position);
+                 Curr = Curr.Parrent;
+
+                 if (Curr == Start) 
+                 {
+                     break;
+                 }
+
+             }
+
+             return Result;
+
+         }
 
         public void FindPath(byte[] map, List<ITower> Towers) 
         {
@@ -53,12 +75,19 @@ namespace TowerDefence
             }
 
             // adding starting point to the open List
+
+            Start.H = calcH(Start.position, End.position);
             OpenList.Add(Start);
+            
+
 
             //starting loop
                 while (true) 
                 {
-                    
+                    if (OpenList.Count == 0)
+                    {
+                        return;
+                    }
                     //get the best tile
                     Tile Best = null;
 
@@ -71,18 +100,111 @@ namespace TowerDefence
                                 Best = OpenList[i];
                             }
                         }
+                        else 
+                        {
+                            Best = OpenList[i];
+                        }
 
                     }   
                     //Move the Tile to the closed List
                     OpenList.Remove(Best);
                     ClosedList.Add(Best);
-                    
+                    if (Best == End) 
+                    {
+                        return;
+                    }
 
-
+                    OpenList.AddRange(NextTiles(Best));
                 }
             
 
+
+
         }
+
+        List<Tile> NextTiles(Tile parrent) 
+        {
+
+            List<Tile> tiles = new List<Tile>();
+            int index = parrent.position.Y * 20 + parrent.position.X;
+
+
+            int newindex = index -1 ;
+            if (TileValid(newindex,index)) 
+            {
+                Map[newindex].Parrent = Map[index];
+                Map[newindex].G = Map[newindex].G + 1; 
+                Map[newindex].H = calcH(Map[newindex].position, End.position);
+                tiles.Add(Map[newindex]);
+            }
+            newindex = index - 20;
+            if (TileValid(newindex,index))
+            {
+                Map[newindex].Parrent = Map[index];
+                Map[newindex].G = Map[newindex].G + 1;
+                Map[newindex].H = calcH(Map[newindex].position, End.position);
+                tiles.Add(Map[newindex]);
+            }
+            newindex = index + 1;
+            if (TileValid(newindex,index))
+            {
+                Map[newindex].Parrent = Map[index];
+                Map[newindex].G = Map[newindex].G + 1;
+                Map[newindex].H = calcH(Map[newindex].position, End.position);
+                tiles.Add(Map[newindex]);
+            }
+            newindex = index + 20;
+            
+            if (TileValid(newindex,index))
+            {
+                Map[newindex].Parrent = Map[index];
+                Map[newindex].G = Map[newindex].G + 1;
+                Map[newindex].H = calcH(Map[newindex].position, End.position);
+                tiles.Add(Map[newindex]);
+            }
+             
+            
+            return tiles;
+
+        }
+        bool TileValid(int index, int parrent)
+        {
+            
+
+
+            if (index > 399 || index < 0) 
+            {
+                return false;
+            }
+
+            if (Map[index].Type == Tile.TileType.UnWalkableTile) 
+            {
+                return false;
+            }
+
+            if (ClosedList.Contains(Map[index]))
+            {
+                return false;
+            }
+
+            if (OpenList.Contains(Map[index])) 
+            {
+                if (Map[parrent].G + 1 < Map[index].G) 
+                {
+                    Map[index].G += 1;
+                    Map[index].Parrent = Map[parrent];
+                    
+                }
+                return false;
+            }
+
+            
+            return true;
+        
+        }
+ 
+
+
 
        static int calcH(Point tile ,Point endTile) 
        {
@@ -94,11 +216,6 @@ namespace TowerDefence
        {
            return new Point(tileindex % 20, tileindex / 20);
        }
-        
-
-       
-
-
 
     }
     class Tile 
@@ -124,7 +241,8 @@ namespace TowerDefence
 
         public Tile(Point p,TileType type)
         {
-            
+            position = p;
+           Type = type;
             
         }
 

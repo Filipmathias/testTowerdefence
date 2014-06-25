@@ -13,15 +13,23 @@ GameScreen
 	-Menu system
 
   -Gameplay	
-	-Class/interface for towers
-  	-class/interface for enemies
+	
+	Towers
+		-Class/interface for towers
+  	
+	Enemies
+		-class/interface for enemies
+		pathFinding--FiliP
 
 Menuscreen
   -CREDITS button
-  -better buttons
+  -Better buttons
 Credits screen
 
 
--very annoying Exit menu(optional
+-very annoying Exit menu	(optional)
 
-- Read - http://www.policyalmanac.org/games/aStarTutorial.htm	
+- Read - http://www.policyalmanac.org/games/aStarTutorial.htm
+
+________________________________________________________________
+
