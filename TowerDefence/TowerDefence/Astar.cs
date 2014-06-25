@@ -11,78 +11,122 @@ using System.Windows.Forms;
 
 namespace TowerDefence
 {
-    static class Astar
+     class Astar
     {
-       static public List<Tile> FindPath(byte[] map, List<ITower> Towers) 
-        {
-            Point Start;
-            Point End;
 
-           byte[] SimpleMap = new byte[400];
+
+
+         List<Tile> ClosedList = new List<Tile>();
+         List<Tile> OpenList = new List<Tile>();
+         Tile[] Map = new Tile[400];
+         Tile Start;
+         Tile End;
+
+
+        public void FindPath(byte[] map, List<ITower> Towers) 
+        {
+            //create TileMap
             for (int i = 0; i < 400; i++)
             {
-
-                
                 if (map[i] == 10) 
                 {
-                    SimpleMap[i] = 0;
+                    Map[i] = new Tile(getPoint(i), Tile.TileType.UnWalkableTile);
                 }
-                else if (map[i] == 0)
+                else if (map[i] == 0) 
                 {
-                    SimpleMap[i] = 1;
+                     Map[i] = new Tile(getPoint(i),Tile.TileType.WalkableTile); 
                 }
-                else if (map[i] == 100)
-                {
-                    SimpleMap[i] = 2;
-                }
-                //check if StartingPoint
                 else if (map[i] == 1)
                 {
-                    Start = new Point(i % 20, i / 20);
-
+                    Map[i] = new Tile(getPoint(i), Tile.TileType.StartTile);
+                    Start = Map[i];
+                        
                 }
-                //check if EndPoint
-                
                 else if (map[i] == 255)
                 {
-                    End = new Point(i % 20, i / 20);
+                    Map[i] = new Tile(getPoint(i), Tile.TileType.EndTile);
+                    End = Map[i];
+                }
+           
+                
+                
+            }
+
+            // adding starting point to the open List
+            OpenList.Add(Start);
+
+            //starting loop
+                while (true) 
+                {
+                    
+                    //get the best tile
+                    Tile Best = null;
+
+                    for (int i = 0; i < OpenList.Count ; i++)
+                    {
+                        if (Best != null) 
+                        {
+                            if (Best.F < OpenList[i].F)
+                            {
+                                Best = OpenList[i];
+                            }
+                        }
+
+                    }   
+                    //Move the Tile to the closed List
+                    OpenList.Remove(Best);
+                    ClosedList.Add(Best);
+                    
+
 
                 }
-
-            }
-            foreach(ITower t in Towers)
-            {
-                SimpleMap[(int)(t.Position.Y * 20 + t.Position.X)] = 2;
-            }
-
-           
-
-           List<Tile> OpenList  = new List<Tile>();
-           List<Tile> ClosedList = new List<Tile>();
-
-
-
-
-           return ClosedList;
+            
 
         }
+
+       static int calcH(Point tile ,Point endTile) 
+       {
+           return Math.Abs(endTile.X - tile.X) + Math.Abs(endTile.Y- tile.Y); 
+
+       }
+
+       static Point getPoint(int tileindex) 
+       {
+           return new Point(tileindex % 20, tileindex / 20);
+       }
+        
+
+       
+
+
+
     }
     class Tile 
     {
+        public enum TileType
+	    {
+	         StartTile,
+             EndTile,
+             WalkableTile,
+             UnWalkableTile
+    	}
         public int G{get; set;}
         public int H{get; set;}
+        public TileType Type {get; set;}
+        public Point position { get; set; }
         public int F
         {
             get{return G+H;}
             
         }
-        public Point Position { get; set; }
+        public Tile Parrent { get; set; }
 
-        public Tile(int g, int h, Point P) 
+
+        public Tile(Point p,TileType type)
         {
-        
+            
+            
         }
-
 
         
     }

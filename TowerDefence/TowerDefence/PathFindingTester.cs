@@ -97,8 +97,7 @@ namespace TowerDefence
             var timer = new Stopwatch();
             // timer started;
             timer.Start();
-            Astar.FindPath(mapData,new List<ITower>());
-
+ 
 
 
             timer.Stop();
