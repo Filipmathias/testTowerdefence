@@ -93,6 +93,12 @@ namespace TowerDefence
                 
             }
 
+            foreach(ITower t in Towers)
+            {
+                Map[t.Position.X + t.Position.Y * 20] = new Tile(t.Position, Tile.TileType.UnWalkableTile);
+            }
+
+
             // adding starting point to the open List
 
             if (Start == null | End == null) 

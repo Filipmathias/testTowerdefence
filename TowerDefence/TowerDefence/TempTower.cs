@@ -16,25 +16,23 @@ namespace TowerDefence
     }
     interface ITower
     {
-        Vector2 Position {get;} 
+        Point Position {get;} 
         void Update(GameTime gametime);
         void Draw(SpriteBatch spriteBatch);
     }
 
     class Tier1Normal: ITower
     {
-        Vector2 Pos;
-        Vector2 Size;
+        Point Pos;
         Color Col;
         int Damage;
         int ASpeed;
-        public Tier1Normal(Vector2 position)
+        public Tier1Normal(Point position)
         {
-            Size = new Vector2(30,30);
             Col = Color.Navy;
             Pos = position;
         }
-        public Vector2 Position
+        public Point Position
         {
             get
             {
@@ -48,7 +46,7 @@ namespace TowerDefence
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), Col);
+            spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle((int)Position.X*30+400, (int)Position.Y*30, 30, 30), Col);
         }
     }
 }

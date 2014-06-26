@@ -20,11 +20,13 @@ namespace TowerDefence
     {
         UIHandler ui = new UIHandler();
         MenuSystem menu = new EmptyMenu();
+        MapArea map = new MapArea();
         public GameScreen()
         {
             ui.UIobjects.Add("ExitButton", new ButtonSimple(new Vector2(0, 500), new Vector2(75, 20), "EXIT", Color.Red, Color.Black, 0.5f));
             ui.UIobjects.Add("OptionsButton", new ButtonSimple(new Vector2(75, 500), new Vector2(75, 20), "Options", Color.Red, Color.Black, 0.5f));
             ui.UIobjects.Add("ShopButton", new ButtonSimple(new Vector2(150, 500), new Vector2(75, 20), "Shop", Color.Gold, Color.Black, 0.5f));
+            
         }
 
         public UIHandler UI
@@ -60,6 +62,19 @@ namespace TowerDefence
             ui.Update(gametime);
             menu.UI.Update(gametime);
             menu.Update(gametime);
+            map.Update(gametime);
+            if (map.WasPressed) 
+            {
+                if (menu is ShopMenu)
+                {
+                    if(((ShopMenu)menu).BuyTower == 101)
+                    { 
+                        map.AddTower(new Tier1Normal(map.Squarepressed),map.Squarepressed);
+                    }    
+                }
+            }
+
+
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
@@ -72,6 +87,9 @@ namespace TowerDefence
             spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle(0, 450, 250, 150), Color.Silver);
             ui.Draw(spriteBatch);
             menu.Draw(spriteBatch);
+            map.Draw(spriteBatch);
+
+
         }
     }
     interface MenuSystem
