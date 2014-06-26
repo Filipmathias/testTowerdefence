@@ -241,7 +241,7 @@ namespace TowerDefence
         {
             Size.X = 15;
             Size.Y = 15;
-            BColor = Color.Tomato;
+            BColor = Color.Pink;
         }
         
         public void Load()
@@ -249,10 +249,23 @@ namespace TowerDefence
            
 
         }
-
+        float time = 0;
         public void Update(GameTime gametime)
         {
+            time += (float)gametime.ElapsedGameTime.TotalSeconds;
+            if (time > 0.1f) 
+            {
+                if (BColor == Color.Pink)
+                {
+                    BColor =Color.Black;
 
+                }
+                else { BColor = Color.Pink; }
+                time = 0;
+            }
+
+
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
