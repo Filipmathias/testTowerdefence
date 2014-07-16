@@ -58,7 +58,8 @@ namespace TowerDefence
                  }
 
              }
-
+             Result.Add(Start.position);
+             Result.Reverse();
              return Result;
          }
 
@@ -109,7 +110,6 @@ namespace TowerDefence
             
             Start.H = calcH(Start.position, End.position);
             OpenList.Add(Start);
-            
 
 
             //starting loop
@@ -248,10 +248,6 @@ namespace TowerDefence
             return true;
         
         }
- 
-
-
-
        static int calcH(Point tile ,Point endTile) 
        {
            return Math.Abs(endTile.X - tile.X) + Math.Abs(endTile.Y- tile.Y); 

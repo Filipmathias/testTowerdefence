@@ -45,11 +45,26 @@ namespace TowerDefence
         Texture2D texture;
         public List<Point> Path { get; set; }
         Vector2 Pos { get; set; }
+        
         float Health { get; set; }
         byte Armor { get; set; }
         bool Alive { get; set; }
-        int Speed { get; set; }
-        
+        float Speed { get; set; }
+        int PathPos = 0;
+
+        public Enemy(List<Point> path) 
+        {
+            Alive = true;
+            if(path.Count !=0)
+            {
+                Pos =  new  Vector2(path[0].X * 30 + 405,path[0].Y*30+5);
+                target = new Vector2(path[1].X * 30 + 405, path[1].Y * 30+5); 
+            }
+                Path = path;
+                Speed = 100;
+        }
+
+
 
         public void Damage(int dmg) 
         {
@@ -61,15 +76,50 @@ namespace TowerDefence
 
         }
 
-
-        public void Update(GameTime gametime) 
+        
+        Vector2 target ;
+        int pointinpath= 1;
+        public void Update(GameTime gametime)
         {
-            
+            Vector2 t = target - Pos;
+            t.X = Math.Sign(t.X);
+            t.Y = Math.Sign(t.Y);
 
-        }
+            if (gametime.ElapsedGameTime.TotalSeconds * Speed >= Vector2.Distance(target,Pos)) 
+            {
 
+                if (pointinpath+1 < Path.Count)
+                {
+                    
+                    pointinpath++;
+                    float remaining = (float)(gametime.ElapsedGameTime.TotalSeconds * Speed - Vector2.Distance(target, Pos));
+                    Pos = new Vector2(Path[pointinpath - 1].X * 30 + 405, Path[pointinpath - 1].Y * 30 + 5);
+                    target = new Vector2(Path[pointinpath].X * 30 + 405, Path[pointinpath].Y * 30 + 5);
+                 
+
+                }
+                else
+                {
+                    pointinpath = 1;
+                    Pos = new Vector2(Path[0].X * 30 + 405, Path[0].Y * 30 + 5);
+                    target = new Vector2(Path[1].X * 30 + 405, Path[1].Y * 30 + 5);
+                }
+                
+            }
+            else 
+            {
+                Pos += t * (float)(Speed * gametime.ElapsedGameTime.TotalSeconds);
+            }
+           
+
+
+
+
+        }    
         public void Draw(SpriteBatch spritebatch)
         {
+            spritebatch.Draw(UILoader.circle, new Rectangle((int)Pos.X, (int)Pos.Y, 20, 20), Color.Black);
+
 
         }
 
@@ -92,8 +142,16 @@ namespace TowerDefence
         public bool WasPressed { get { return wasPressed; } }
         public bool IsDown { get { return isDown; } }
         public Point Squarepressed { get { return pointSquare; } }
-    
+        public Enemy enemy;
 
+
+        public MapArea()
+        {
+            MapData = File.ReadAllBytes(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\maps\\Default.TDM");
+            enemyPath = new Astar().FindPath(MapData, Towers).pathPoints;
+            firstrun = false;
+            enemy = new Enemy(enemyPath);
+        }
 
         bool checkHover()
         {
@@ -105,13 +163,6 @@ namespace TowerDefence
        public void Update(GameTime gametime)
         {
 
-           //first
-          if(firstrun)
-          {
-              MapData = File.ReadAllBytes(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\maps\\Default.TDM");
-              enemyPath = new Astar().FindPath(MapData, Towers).pathPoints;
-            firstrun = false;
-          }
 
            //check pressed
           if (wasPressed)
@@ -134,7 +185,7 @@ namespace TowerDefence
           {
               isDown = false;
           }
-
+          enemy.Update(gametime);
 
 
 
@@ -148,6 +199,7 @@ namespace TowerDefence
             {
                 t.Draw(spriteBatch);
             }
+            enemy.Draw(spriteBatch);
         }
         
         
