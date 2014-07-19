@@ -20,7 +20,7 @@ namespace TowerDefence
     {
         UIHandler ui = new UIHandler();
         MenuSystem menu = new EmptyMenu();
-        MapArea map = new MapArea();
+        MapArea map = new MapArea(new Vector2(300,0));
         public GameScreen()
         {
             ui.UIobjects.Add("ExitButton", new ButtonSimple(new Vector2(0, 500), new Vector2(75, 20), "EXIT", Color.Red, Color.Black, 0.5f));
@@ -69,7 +69,7 @@ namespace TowerDefence
                 {
                     if(((ShopMenu)menu).BuyTower == 101)
                     { 
-                        map.AddTower(new Tier1Normal(map.Squarepressed),map.Squarepressed);
+                        map.AddTower(new Tier1Normal(map.Squarepressed,map),map.Squarepressed);
                     }    
                 }
             }

@@ -43,11 +43,9 @@ namespace TowerDefence
          {
              
              List<Point> Result = new List<Point>();
-
-             bool done = false;
              Tile Curr = End;
              
-             while (!done)
+             while (true)
              {
                  Result.Add(Curr.position);
                  Curr = Curr.Parrent;
@@ -65,8 +63,11 @@ namespace TowerDefence
 
 
 
-        public PathResult FindPath(byte[] map, List<ITower> Towers) 
+        public PathResult FindPath(byte[] map, List<ITower> Towers,Point? startpoint = null) 
         {
+
+
+            
             //create TileMap
             for (int i = 0; i < 400; i++)
             {
@@ -89,14 +90,20 @@ namespace TowerDefence
                     Map[i] = new Tile(getPoint(i), Tile.TileType.EndTile);
                     End = Map[i];
                 }
-           
                 
                 
             }
+            
+
+
 
             foreach(ITower t in Towers)
             {
                 Map[t.Position.X + t.Position.Y * 20] = new Tile(t.Position, Tile.TileType.UnWalkableTile);
+            }
+            if (startpoint != null)
+            {
+                Start = Map[startpoint.Value.X +startpoint.Value.Y * 20];
             }
 
 

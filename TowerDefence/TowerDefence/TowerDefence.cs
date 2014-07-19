@@ -43,24 +43,48 @@ namespace TowerDefence
     class Enemy 
     {
         Texture2D texture;
-        public List<Point> Path { get; set; }
+        MapArea Map;
+
+        public Queue<Point> Path
+        {
+            get;
+            set;
+        }
+
+
         Vector2 Pos { get; set; }
-        
         float Health { get; set; }
         byte Armor { get; set; }
         bool Alive { get; set; }
         float Speed { get; set; }
         int PathPos = 0;
-
-        public Enemy(List<Point> path) 
+        Point PointPos 
         {
+            get { return new Point((int)LocalPos.X / 30 , (int)LocalPos.Y / 30); }
+        }
+        Vector2 LocalPos 
+        {
+            get { return Pos - Map.DrawPos; }
+        }
+
+
+
+        public Enemy(List<Point> path,MapArea map) 
+        {
+            Map = map;
             Alive = true;
+            Path = new Queue<Point>(path);
+
+
+
             if(path.Count !=0)
             {
-                Pos =  new  Vector2(path[0].X * 30 + 405,path[0].Y*30+5);
-                target = new Vector2(path[1].X * 30 + 405, path[1].Y * 30+5); 
+                Point posT = Path.Dequeue();
+                Point tarT = Path.Dequeue();
+                Pos = new Vector2((posT.X * 30) + (int)Map.DrawPos.X + 5, (posT.Y * 30) + (int)Map.DrawPos.Y + 5);
+                target = new Vector2((tarT.X * 30) + (int)Map.DrawPos.X + 5 , (tarT.Y * 30) + (int)Map.DrawPos.Y + 5); 
             }
-                Path = path;
+             
                 Speed = 100;
         }
 
@@ -76,9 +100,7 @@ namespace TowerDefence
 
         }
 
-        
         Vector2 target ;
-        int pointinpath= 1;
         public void Update(GameTime gametime)
         {
             Vector2 t = target - Pos;
@@ -88,23 +110,16 @@ namespace TowerDefence
             if (gametime.ElapsedGameTime.TotalSeconds * Speed >= Vector2.Distance(target,Pos)) 
             {
 
-                if (pointinpath+1 < Path.Count)
+                if (Path.Count!=0)
                 {
                     
-                    pointinpath++;
                     float remaining = (float)(gametime.ElapsedGameTime.TotalSeconds * Speed - Vector2.Distance(target, Pos));
-                    Pos = new Vector2(Path[pointinpath - 1].X * 30 + 405, Path[pointinpath - 1].Y * 30 + 5);
-                    target = new Vector2(Path[pointinpath].X * 30 + 405, Path[pointinpath].Y * 30 + 5);
-                 
+                    Pos = target;
+                    Point p = Path.Dequeue();
 
+                    target = new Vector2(p.X * 30 + (int)Map.DrawPos.X +5, p.Y * 30 +(int)Map.DrawPos.Y + 5);                 
                 }
-                else
-                {
-                    pointinpath = 1;
-                    Pos = new Vector2(Path[0].X * 30 + 405, Path[0].Y * 30 + 5);
-                    target = new Vector2(Path[1].X * 30 + 405, Path[1].Y * 30 + 5);
-                }
-                
+
             }
             else 
             {
@@ -118,10 +133,20 @@ namespace TowerDefence
         }    
         public void Draw(SpriteBatch spritebatch)
         {
+            
             spritebatch.Draw(UILoader.circle, new Rectangle((int)Pos.X, (int)Pos.Y, 20, 20), Color.Black);
 
 
         }
+
+        public void UpdatePath()
+        {
+            
+          Path = new Queue<Point>( new Astar().FindPath(Map.MapData, Map.Towers, PointPos).pathPoints);
+           
+
+        }
+
 
 
     }
@@ -132,38 +157,31 @@ namespace TowerDefence
         
         bool wasPressed=false;
         bool isDown = false;
-        List<ITower> Towers = new List<ITower>();
-        byte[] MapData = new byte[400];
+        public List<ITower> Towers = new List<ITower>();
+        public  byte[] MapData = new byte[400];
         List<Enemy> Enemies = new List<Enemy>();
         string MapPath = "";
-        bool firstrun = true;
-        List<Point> enemyPath = new List<Point>();
         Point pointSquare = new Point(-1,-1);
         public bool WasPressed { get { return wasPressed; } }
         public bool IsDown { get { return isDown; } }
         public Point Squarepressed { get { return pointSquare; } }
         public Enemy enemy;
+        public Vector2 DrawPos{get;set;}
 
-
-        public MapArea()
+        public MapArea(Vector2 drawPos)
         {
             MapData = File.ReadAllBytes(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\maps\\Default.TDM");
-            enemyPath = new Astar().FindPath(MapData, Towers).pathPoints;
-            firstrun = false;
-            enemy = new Enemy(enemyPath);
+            DrawPos = drawPos;
+            enemy = new Enemy(new Astar().FindPath(MapData, Towers).pathPoints, this);
         }
 
         bool checkHover()
         {
-            return new Rectangle(400, 0, 600, 600).Contains(new Point(Game1.Instance.mouseState.X, Game1.Instance.mouseState.Y));
-
-
+            return new Rectangle((int)DrawPos.X, (int)DrawPos.Y, 600, 600).Contains(new Point(Game1.Instance.mouseState.X, Game1.Instance.mouseState.Y));
         }
 
        public void Update(GameTime gametime)
         {
-
-
            //check pressed
           if (wasPressed)
           {
@@ -173,23 +191,17 @@ namespace TowerDefence
           if (isDown & ms.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
           {
               wasPressed = true;
-              pointSquare = new Point((Game1.Instance.mouseState.X-400) / 30, Game1.Instance.mouseState.Y / 30);
-
+              pointSquare = new Point((Game1.Instance.mouseState.X - (int)DrawPos.X) / 30,( Game1.Instance.mouseState.Y -(int)DrawPos.Y) / 30);
           }
           if (ms.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed & checkHover())
           {
               isDown = true;
-
           }
           else
           {
               isDown = false;
           }
           enemy.Update(gametime);
-
-
-
-
         }
         
         public void Draw(SpriteBatch spriteBatch)
@@ -216,27 +228,22 @@ namespace TowerDefence
                     }
 
                 }
-
-                ITower[] towerTemp = new ITower[Towers.Count];
-                Towers.CopyTo(towerTemp);
+                
+                //ITower[] towerTemp = new ITower[Towers.Count];
+                //Towers.CopyTo(towerTemp);
                 List<ITower> tempTowerlist = new List<ITower>();
-                tempTowerlist.AddRange(towerTemp);
+                tempTowerlist.AddRange(Towers);
                 tempTowerlist.Add(tower);
-
-
-
-
-                PathResult result = new Astar().FindPath(MapData, tempTowerlist);
-                if (result.Success)
+                
+                if(new Astar().FindPath(MapData,tempTowerlist).Success)                
                 {
                     Towers.Add(tower);
-                    enemyPath = result.pathPoints;
+                    enemy.UpdatePath();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                
+
+
 
             }
 
@@ -252,7 +259,7 @@ namespace TowerDefence
         {
             for (int i = 0; i < 400; i++)
             {
-                spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle((400 + i * 30) - (i / 20 * 600), (i / 20) * 30, 30, 30), getColor(MapData[i]));
+                spriteBatch.Draw(UILoader.ButtonTexture, new Rectangle(((int)DrawPos.X + i * 30) - ((int)DrawPos.Y + i / 20 * 600), (i / 20) * 30, 30, 30), getColor(MapData[i]));
             }   
 
 
