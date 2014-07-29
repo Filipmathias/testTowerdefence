@@ -39,6 +39,7 @@ namespace TowerDefence
          Tile[] Map = new Tile[400];
          Tile Start = null;
          Tile End = null;
+         
          List<Point> getPath() 
          {
              

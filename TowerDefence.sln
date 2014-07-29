@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefence", "TowerDefenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefenceContent", "TowerDefence\TowerDefenceContent\TowerDefenceContent.contentproj", "{C4C061A2-2598-4EB5-BDB0-1FEB5EF1FB39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstarLib", "AstarLib\AstarLib.csproj", "{66DCD734-F905-440B-80AD-485857D84B28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,16 @@ Global
 		{C4C061A2-2598-4EB5-BDB0-1FEB5EF1FB39}.Release|Any CPU.ActiveCfg = Release|x86
 		{C4C061A2-2598-4EB5-BDB0-1FEB5EF1FB39}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{C4C061A2-2598-4EB5-BDB0-1FEB5EF1FB39}.Release|x86.ActiveCfg = Release|x86
+		{66DCD734-F905-440B-80AD-485857D84B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{66DCD734-F905-440B-80AD-485857D84B28}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
