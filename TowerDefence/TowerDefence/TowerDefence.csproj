@@ -76,21 +76,22 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Astar.cs" />
-    <Compile Include="Game\Enemy.cs" />
-    <Compile Include="Game\WaveHandler.cs" />
-    <Compile Include="OptionsUI.cs" />
-    <Compile Include="MapEditor.cs" />
-    <Compile Include="PathFindingTester.cs" />
-    <Compile Include="TempTower.cs" />
-    <Compile Include="TowerDefence.cs" />
-    <Compile Include="UIGame.cs" />
+    <Compile Include="Gamefolder\Astar.cs" />
+    <Compile Include="Gamefolder\Enemy.cs" />
+    <Compile Include="Gamefolder\WaveHandler.cs" />
+    <Compile Include="Editors\OptionsUI.cs" />
+    <Compile Include="Editors\MapEditor.cs" />
+    <Compile Include="Editors\PathFindingTester.cs" />
+    <Compile Include="Gamefolder\TempTower.cs" />
+    <Compile Include="Gamefolder\TowerDefence.cs" />
+    <Compile Include="Gamefolder\UIGame.cs" />
     <Compile Include="FPSModule.cs" />
-    <Compile Include="ModuleLoader.cs" />
+    <Compile Include="Shared\Constants.cs" />
+    <Compile Include="Shared\ModuleLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="Shared\Game1.cs" />
+    <Compile Include="Gamefolder\UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

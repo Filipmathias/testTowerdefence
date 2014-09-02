@@ -19,7 +19,7 @@ namespace TowerDefence
         /// well adding stuff hlp alot:3 
         /// </summary>
         /// <param name="name">yes this is actually the name</param>
-        /// <param name="module"></param>
+        /// <param name="module">the module yuo wanna add</param>
         /// 
 
        public void Add(string name,IModule module)

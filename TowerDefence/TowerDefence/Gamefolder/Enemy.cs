@@ -9,12 +9,12 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
 
 
-namespace TowerDefence.Game
+namespace TowerDefence
 {
 
 
 
-    class Enemy //Normal Energy
+    public class Enemy //Normal Energy
     {
         Texture2D texture;
         MapArea Map;
@@ -24,11 +24,10 @@ namespace TowerDefence.Game
             get;
             set;
         }
-
+        public bool Alive =true;
         Vector2 Pos { get; set; }
         float Health { get; set; }
         byte Armor { get; set; }
-        bool Alive { get; set; }
         float Speed { get; set; }
         int PathPos = 0;
 
@@ -42,12 +41,12 @@ namespace TowerDefence.Game
             get { return Pos - Map.DrawPos; }
         }
 
-        public Enemy(List<Point> path, MapArea map)
+        public Enemy(int i)
         {
-            Map = map;
-            Alive = true;
-            Path = new Queue<Point>(path);
-            if (path.Count != 0)
+            Map = Game1.Instance.gameModule.map;
+            Path = new Queue<Point>(new Astar().FindPath(Map.MapData, Game1.Instance.gameModule.map.Towers).pathPoints);
+
+            if (Path.Count != 0)
             {
                 Point posT = Path.Dequeue();
                 Point tarT = Path.Dequeue();

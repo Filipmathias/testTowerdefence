@@ -32,7 +32,7 @@ namespace TowerDefence
 
 
     }
-    class UIHandler
+    public class UIHandler
     {
         public  Dictionary<string, IUserInterface> UIobjects = new Dictionary<string,IUserInterface>();
 
@@ -88,7 +88,7 @@ namespace TowerDefence
         void Update(GameTime gametime);
         void Draw(SpriteBatch spriteBatch);
     }
-    interface IUserInterface 
+    public interface IUserInterface 
     {
         void Update(GameTime gametime);
         void Draw(SpriteBatch spriteBatch);
@@ -129,7 +129,8 @@ namespace TowerDefence
             }
             if (((ButtonSimple)ui.UIobjects["StartButton"]).WasPressed)
             {
-                ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new GameScreen();
+                Game1.Instance.gameModule = new GameScreen();
+                ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = Game1.Instance.gameModule;
             }
             if (((ButtonSimple)ui.UIobjects["DoNotPressButton"]).WasPressed)
             {

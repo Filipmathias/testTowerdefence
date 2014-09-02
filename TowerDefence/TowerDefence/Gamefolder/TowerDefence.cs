@@ -40,14 +40,10 @@ namespace TowerDefence
 
 
 
-    class Enemy 
-    {
-    }
 
-    class MapArea 
-    {
-        
-        
+
+    public class MapArea 
+    {    
         bool wasPressed=false;
         bool isDown = false;
         public List<ITower> Towers = new List<ITower>();
@@ -65,7 +61,6 @@ namespace TowerDefence
         {
             MapData = File.ReadAllBytes(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\maps\\Default.TDM");
             DrawPos = drawPos;
-            enemy = new Enemy(new Astar().FindPath(MapData, Towers).pathPoints, this);
         }
 
         bool checkHover()
@@ -73,8 +68,18 @@ namespace TowerDefence
             return new Rectangle((int)DrawPos.X, (int)DrawPos.Y, 600, 600).Contains(new Point(Game1.Instance.mouseState.X, Game1.Instance.mouseState.Y));
         }
 
+        bool first= true;
        public void Update(GameTime gametime)
         {
+            if (first) 
+            {
+                first = false;
+                enemy = new Enemy(1);
+
+            
+            }
+
+           
            //check pressed
           if (wasPressed)
           {
@@ -104,7 +109,10 @@ namespace TowerDefence
             {
                 t.Draw(spriteBatch);
             }
-            enemy.Draw(spriteBatch);
+            if (first == false)
+            {
+                enemy.Draw(spriteBatch);
+            }
         }
         
         

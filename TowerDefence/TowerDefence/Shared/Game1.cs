@@ -21,8 +21,7 @@ namespace TowerDefence
         public KeyboardState keyState;
         public MouseState mouseState;
         public SpriteFont debugFont;
-
-
+        public GameScreen gameModule;
         public ModuleHandler Modules = new ModuleHandler();
         public Game1(): base()
         {

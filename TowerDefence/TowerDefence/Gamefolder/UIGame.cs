@@ -13,22 +13,23 @@ namespace TowerDefence
     class UIGame
     {
         UIHandler UGame = new UIHandler();
-        
     }
 
-    class GameScreen: IScreen
+   public class GameScreen: IScreen
     {
         UIHandler ui = new UIHandler();
-        MenuSystem menu = new EmptyMenu();
-        MapArea map = new MapArea(new Vector2(300,0));
+        public MenuSystem menu = new EmptyMenu();
+        public MapArea map = new MapArea(new Vector2(300,0));
+       
         public GameScreen()
         {
             ui.UIobjects.Add("ExitButton", new ButtonSimple(new Vector2(0, 500), new Vector2(75, 20), "EXIT", Color.Red, Color.Black, 0.5f));
             ui.UIobjects.Add("OptionsButton", new ButtonSimple(new Vector2(75, 500), new Vector2(75, 20), "Options", Color.Red, Color.Black, 0.5f));
             ui.UIobjects.Add("ShopButton", new ButtonSimple(new Vector2(150, 500), new Vector2(75, 20), "Shop", Color.Gold, Color.Black, 0.5f));
             
+     
         }
-
+       
         public UIHandler UI
         {
             get 
@@ -92,7 +93,7 @@ namespace TowerDefence
 
         }
     }
-    interface MenuSystem
+    public interface MenuSystem
     {
         UIHandler UI { get; }
         void Update(GameTime gametime);

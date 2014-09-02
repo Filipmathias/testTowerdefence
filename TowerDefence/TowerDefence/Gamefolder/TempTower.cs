@@ -14,7 +14,7 @@ namespace TowerDefence
     class TempTower
     {
     }
-    interface ITower
+    public interface ITower
     {
 
         MapArea mapArea {get;}
