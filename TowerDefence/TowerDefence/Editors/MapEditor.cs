@@ -48,8 +48,6 @@ namespace TowerDefence
 
         void IScreen.Load()
         {
-
-
         }
 
         public MapEditor() 
@@ -57,10 +55,7 @@ namespace TowerDefence
             for (int i = 0; i < 400; i++)
             {
                 buttonArray[i] = new ButtonSimple(new Vector2((400 + i * 30) - (i / 20 * 600), (i / 20) * 30), new Vector2(30, 30), "0", getColor(0), Color.Black, 0.8f);
-
             }
-
-
         }
         byte SelectedValue = 0;
 
@@ -198,6 +193,7 @@ namespace TowerDefence
 
         void SaveFile()
         {
+
             var SFD = new SaveFileDialog();
             SFD.AddExtension = true;
             SFD.DefaultExt = ".TDM";

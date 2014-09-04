@@ -57,6 +57,7 @@ namespace TowerDefence
                  }
 
              }
+
              Result.Add(Start.position);
              Result.Reverse();
              return Result;
@@ -66,9 +67,6 @@ namespace TowerDefence
 
         public PathResult FindPath(byte[] map, List<ITower> Towers,Point? startpoint = null) 
         {
-
-
-            
             //create TileMap
             for (int i = 0; i < 400; i++)
             {
@@ -94,9 +92,6 @@ namespace TowerDefence
                 
                 
             }
-            
-
-
 
             foreach(ITower t in Towers)
             {

@@ -13,7 +13,7 @@ namespace TowerDefence
     
     
     
-    class WaveHandler
+    public class WaveHandler
     {
         Queue<Wave> _Waves = new Queue<Wave>();
         List<Enemy> _Active = new List<Enemy>();
@@ -46,22 +46,35 @@ namespace TowerDefence
 
 
         }
-        //static List<object> Constructors() 
-        //{
-        //    Dictionary<string, Converter<int,Enemy>> Actions = new Dictionary<string,Converter<int,Enemy>>();
-  
 
-
-        //}
-
-        public void Draw(SpriteBatch spritebat) 
+        public void Draw(SpriteBatch spritebat)
         {
-        
+
+
         }
+       public static Dictionary<string,Converter<int,Enemy>> EnemyConverters()
+        {
+            Dictionary<string, Converter<int, Enemy>> list = new Dictionary<string, Converter<int, Enemy>>();
+            
+            list.Add("Normal",new Converter<int,Enemy>((int e)=> new Enemy(e)));
+            return list;
+
+        }
+    
+    
+    }
+    public class Wave
+    {
+
+        public List<EnemyInfo> Enemies { get; set; }
+        public Wave(){Enemies = new List<EnemyInfo>();}
     }
 
-    class Wave
+    public class EnemyInfo
     {
+
+        public string Type { get; set; }
+        public float level { get; set; }
     
     }
 

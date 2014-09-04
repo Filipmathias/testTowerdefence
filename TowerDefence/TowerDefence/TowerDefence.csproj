@@ -83,7 +83,7 @@
     <Compile Include="Editors\MapEditor.cs" />
     <Compile Include="Editors\PathFindingTester.cs" />
     <Compile Include="Gamefolder\TempTower.cs" />
-    <Compile Include="Gamefolder\TowerDefence.cs" />
+    <Compile Include="Gamefolder\mapArea.cs" />
     <Compile Include="Gamefolder\UIGame.cs" />
     <Compile Include="FPSModule.cs" />
     <Compile Include="Shared\Constants.cs" />
