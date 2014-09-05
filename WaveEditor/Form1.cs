@@ -12,9 +12,6 @@ using Newtonsoft.Json;
 using System.IO;
 namespace WaveEditor
 {
-    
-
-
     public partial class Form1 : Form
     {
 
@@ -25,26 +22,23 @@ namespace WaveEditor
         public Form1()
         {
             InitializeComponent();
-            addComboBox();
+            AddComboBox();
             waves.Add(new Wave());
             listBox1.Items.Add("wave1");
 
         }
-        void addComboBox() 
+        void AddComboBox() 
         {
             comboBox1.Items.AddRange(WaveHandler.EnemyConverters().Keys.ToArray<string>());
         }
         
-        void loadEnemyList() 
+        void LoadEnemyList() 
         {
-            if (listBox1.SelectedIndex != -1) 
-            { 
+            if (listBox1.SelectedIndex != -1)
+            {
                 listBox2.Items.Clear();
                 listBox2.Items.AddRange(waves[listBox1.SelectedIndex].Enemies.ToArray());
             }
-        
-
-        
         }
 
         void LoadWaveList()
@@ -81,15 +75,11 @@ namespace WaveEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var fileDiag = new OpenFileDialog();
-            fileDiag.CheckFileExists = true;
-            fileDiag.FileName =  Application.ExecutablePath+"\\maps";
+            var fileDiag = new OpenFileDialog {CheckFileExists = true, FileName = Application.ExecutablePath + "\\maps"};
             if (fileDiag.ShowDialog() == DialogResult.OK) 
             {
                 textBox1.Text = fileDiag.FileName;
             }
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -114,9 +104,8 @@ namespace WaveEditor
                 Waves = waves.ToArray()
             });
 
-            SaveFileDialog saveDiag = new SaveFileDialog();
-            saveDiag.DefaultExt = ".jsn";
-            if (saveDiag.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+            var saveDiag = new SaveFileDialog {DefaultExt = ".jsn"};
+            if (saveDiag.ShowDialog() == DialogResult.OK) 
             {
                 File.WriteAllText(saveDiag.FileName, data);    
             }
@@ -138,16 +127,14 @@ namespace WaveEditor
             enemy.Type = comboBox1.Text;
 
             waves[listBox1.SelectedIndex].Enemies.Add(enemy);
-            loadEnemyList();
+            LoadEnemyList();
+            }
         }
-        }
-
-        int selectedWave = 0;
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
 
-            loadEnemyList();
+            LoadEnemyList();
             
             
   

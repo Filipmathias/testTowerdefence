@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -7,42 +8,49 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
+using Newtonsoft.Json;
 
 namespace TowerDefence
 {
-    
-    
-    
+
     public class WaveHandler
     {
-        Queue<Wave> _Waves = new Queue<Wave>();
-        List<Enemy> _Active = new List<Enemy>();
+        Queue<Wave> _waves = new Queue<Wave>();
+        List<Enemy> _active = new List<Enemy>();
+        private Queue<Wave> _currentWave;
 
         public Queue<Wave> Waves
         {
-            get { return _Waves; }
-            set { _Waves = value; }
+            get { return _waves; }
+            set { _waves = value; }
         }
-  
-        public List<Enemy> ActiveEnemies 
+
+        public List<Enemy> ActiveEnemies
         {
-            get { return _Active; } 
-            set {_Active = value; } 
+            get { return _active; }
+            set { _active = value; }
         }
 
-        Wave _current;
-
-        
         // write code for loading the Waves
-        public WaveHandler() 
+        public WaveHandler(Wave[] waves)
         {
-
-
+            _waves = new Queue<Wave>(waves);
         }
+
+        private List<Enemy> ConvertEnemies( enemu input)
+        {
+        }
+
+        private double waveCD = 0;
+        private double enemyCD = 0;
 
         public void Update(GameTime game)
         {
-            
+            if (enemyCD <= 0)
+            {
+               
+
+            }
 
 
         }
@@ -52,22 +60,29 @@ namespace TowerDefence
 
 
         }
-       public static Dictionary<string,Converter<int,Enemy>> EnemyConverters()
+        public static Dictionary<string, Converter<int, Enemy>> EnemyConverters()
         {
-            Dictionary<string, Converter<int, Enemy>> list = new Dictionary<string, Converter<int, Enemy>>();
-            
-            list.Add("Normal",new Converter<int,Enemy>((int e)=> new Enemy(e)));
+            var list = new Dictionary<string, Converter<int, Enemy>>
+            {
+                {"Normal", new Converter<int, Enemy>((int e) => new Enemy(e))}
+
+            };
+
             return list;
 
         }
-    
-    
+
+        public class WaveData
+        {
+            public string Map { get; set; }
+            public Wave[] Waves { get; set; }
+        }
     }
     public class Wave
     {
 
         public List<EnemyInfo> Enemies { get; set; }
-        public Wave(){Enemies = new List<EnemyInfo>();}
+        public Wave() { Enemies = new List<EnemyInfo>(); }
     }
 
     public class EnemyInfo
@@ -75,7 +90,7 @@ namespace TowerDefence
 
         public string Type { get; set; }
         public float level { get; set; }
-    
+
     }
 
 
