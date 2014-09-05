@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WaveEditor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
+
 
 namespace TowerDefence
 {
@@ -57,7 +59,8 @@ namespace TowerDefence
             }
             if (((ButtonSimple)ui.UIobjects["WaveEditButton"]).WasPressed)
             {
-                ((ScreenModule)Game1.Instance.Modules.Get("Screen")).Screen = new PathFindingTester();
+
+                new Form1().ShowDialog();
             }
 
         }
