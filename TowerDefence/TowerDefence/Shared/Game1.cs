@@ -19,6 +19,8 @@ namespace TowerDefence
 
     public class Game1 : Game
     {
+        public static bool _Update = true;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         static public Game1 Instance;
@@ -97,10 +99,14 @@ namespace TowerDefence
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            keyState = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-            Modules.Update(gameTime);
-            // TODO: Add your update logic here
+            if (_Update)
+            {
+                keyState = Keyboard.GetState();
+                mouseState = Mouse.GetState();
+                Modules.Update(gameTime);
+                // TODO: Add your update logic here
+              
+            }
             base.Update(gameTime);
         }
 
@@ -110,6 +116,7 @@ namespace TowerDefence
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            base.Update(gameTime);
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
