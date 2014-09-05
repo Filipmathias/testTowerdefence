@@ -1,11 +1,13 @@
 ﻿#region Using Statements
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.GamerServices;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using WaveEditor;
 #endregion
 
 namespace TowerDefence
@@ -13,6 +15,9 @@ namespace TowerDefence
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+    /// 
+
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -46,7 +51,6 @@ namespace TowerDefence
             this.graphics.SynchronizeWithVerticalRetrace = false;
             this.graphics.ApplyChanges(); 
             this.IsFixedTimeStep = false;
-
             //modules ADDED here bitch:3
 
 

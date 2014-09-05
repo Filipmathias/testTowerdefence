@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefence", "TowerDefence\TowerDefence\TowerDefence.csproj", "{1134F3B9-F0DC-4F1D-AE18-A3A2B9E90592}"
+	ProjectSection(ProjectDependencies) = postProject
+		{66DCD734-F905-440B-80AD-485857D84B28} = {66DCD734-F905-440B-80AD-485857D84B28}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefenceContent", "TowerDefence\TowerDefenceContent\TowerDefenceContent.contentproj", "{C4C061A2-2598-4EB5-BDB0-1FEB5EF1FB39}"
 EndProject

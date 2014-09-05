@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TowerDefence;
 using Newtonsoft.Json;
 using System.IO;
 namespace WaveEditor
@@ -15,10 +14,22 @@ namespace WaveEditor
     public partial class Form1 : Form
     {
 
+        public class Wave
+        {
+
+            public List<EnemyInfo> Enemies { get; set; }
+            public Wave() { Enemies = new List<EnemyInfo>(); }
+        }
+
+        public class EnemyInfo
+        {
+
+            public string Type { get; set; }
+            public float level { get; set; }
+
+        }
+
         List<Wave> waves = new List<Wave>();
-
-
-
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +40,7 @@ namespace WaveEditor
         }
         void AddComboBox() 
         {
-            comboBox1.Items.AddRange(WaveHandler.EnemyConverters().Keys.ToArray<string>());
+            comboBox1.Items.Add("Normal");
         }
         
         void LoadEnemyList() 

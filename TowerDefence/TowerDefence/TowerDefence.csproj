@@ -104,6 +104,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WaveEditor\WaveEditor.csproj">
+      <Project>{0cb52c38-c8fb-4432-9fcc-484b7f8aed07}</Project>
+      <Name>WaveEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TowerDefenceContent\TowerDefenceContent.contentproj">
       <Name>TowerDefenceContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
