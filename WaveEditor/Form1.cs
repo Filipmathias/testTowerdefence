@@ -132,12 +132,11 @@ namespace WaveEditor
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
             LoadEnemyList();
-            
-            
-  
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 

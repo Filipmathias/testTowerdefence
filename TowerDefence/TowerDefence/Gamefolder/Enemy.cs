@@ -41,7 +41,7 @@ namespace TowerDefence
             get { return Pos - Map.DrawPos; }
         }
 
-        public Enemy(int i)
+        public Enemy(float i)
         {
             Map = Game1.Instance.gameModule.map;
             Path = new Queue<Point>(new Astar().FindPath(Map.MapData, Game1.Instance.gameModule.map.Towers).pathPoints);
