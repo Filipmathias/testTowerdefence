@@ -37,8 +37,10 @@ namespace TowerDefence
             _waves = new Queue<Wave>(waves);
         }
 
-        private List<Enemy> ConvertEnemies( enemu input)
+        private List<Enemy> ConvertEnemies(List<EnemyInfo> input)
         {
+
+            return new List<Enemy>();
         }
 
         private double waveCD = 0;
@@ -64,7 +66,9 @@ namespace TowerDefence
         {
             var list = new Dictionary<string, Converter<int, Enemy>>
             {
-                {"Normal", new Converter<int, Enemy>((int e) => new Enemy(e))}
+                {"Normal", new Converter<int, Enemy>((int e) => new Enemy(e))},
+                {"Gert20", new Converter<int, Enemy>((int e) => new Enemy(e))}
+
 
             };
 
