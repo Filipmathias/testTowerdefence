@@ -62,8 +62,6 @@ namespace TowerDefence
                 Game1._Update = false;
                 new Form1().ShowDialog();
                 Game1._Update = true;
-                
-
             }
 
         }
